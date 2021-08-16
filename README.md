@@ -53,6 +53,15 @@ Boilerplate based on [CRA Must Have Libraries](https://www.npmjs.com/package/cra
 - Integration tests: check if needed, could be that Enzyme is enough, otherwise Cypress. Will need to remove Puppeteer 
 that came with template
 
+### Focus points
+
+- No focus on A11y, I've shown that in the previous demo
+- No focus on theming, I've shown that in previous demo
+- Focus on services
+- Focus on testing
+
+### 
+
 ## Time log
 
 ### August 16th
@@ -60,3 +69,4 @@ that came with template
 - 11:20 - 12:15 read up a bit on hooks, make a start on the CommitService
 - 12:50 - 13:15 Implement StateContext and StateProvider
 - 13:15 - 14:00 CommitService tests, 
+- 14:00 - start on OverviewPage
