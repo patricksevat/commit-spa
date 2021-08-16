@@ -8,7 +8,8 @@ Boilerplate based on [CRA Must Have Libraries](https://www.npmjs.com/package/cra
 - Css or SCSS/SASS ✅
 - Commit overview
     - Fetch commits via Github API ✅
-    - List view, newest on top
+    - List view
+        - newest on top
         - List item show first line of each commit + timestamp
             - Use ellipsis
         - Separate components for List + ListItem
@@ -69,4 +70,4 @@ that came with template
 - 11:20 - 12:15 read up a bit on hooks, make a start on the CommitService
 - 12:50 - 13:15 Implement StateContext and StateProvider
 - 13:15 - 14:00 CommitService tests, 
-- 14:00 - start on OverviewPage
+- 14:00 - 15:00 start on OverviewPage

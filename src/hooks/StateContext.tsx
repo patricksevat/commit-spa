@@ -1,5 +1,5 @@
 import React, { createContext, FunctionComponent, useEffect, useState } from 'react';
-import { ICommitState, IProviderState } from '../types/commits';
+import { IProviderState } from '../types/commits';
 import { nowTimestamp } from '../utils/date-time';
 import { CommitService } from '../services/CommitService';
 
