@@ -25,7 +25,10 @@ export const AppLayout: FunctionComponent = (props) => {
           </Select>
         </Toolbar>
       </AppBar>
-      { props.children }
+      <main>
+        { props.children }
+      </main>
+
     </>
 
   );

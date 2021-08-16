@@ -71,3 +71,4 @@ that came with template
 - 12:50 - 13:15 Implement StateContext and StateProvider
 - 13:15 - 14:00 CommitService tests, 
 - 14:00 - 15:00 start on OverviewPage
+- 19:30 - 20:00 Show error when data fetching fails, add shimmer
