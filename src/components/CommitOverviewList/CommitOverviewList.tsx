@@ -6,8 +6,11 @@ import { CommitOverviewListItem } from '../CommitOverviewListItem/CommitOverview
 import { Error } from '../Error/Error';
 import { nowTimestamp } from '../../utils/date-time';
 import { Skeleton } from '@material-ui/lab';
+import { TranslationContext } from '../../hooks/TranslationContext';
 
 export const CommitOverviewList: FunctionComponent = (props) => {
+  const { translate } = React.useContext(TranslationContext);
+
   // using React.useContext here for easier mocking
   // https://github.com/enzymejs/enzyme/issues/2176#issuecomment-532361526
   const commitState = React.useContext(StateContext);
@@ -40,13 +43,13 @@ export const CommitOverviewList: FunctionComponent = (props) => {
         <TableHead>
           <TableRow>
             <TableCell>
-              Message
+              { translate('message') }
             </TableCell>
             <TableCell>
-              Date
+              { translate('date') }
             </TableCell>
             <TableCell>
-              Author
+              { translate('author') }
             </TableCell>
           </TableRow>
         </TableHead>
