@@ -18,7 +18,8 @@ export const StateProvider: FunctionComponent = ({ children }) => {
 
   useEffect(() => {
     async function getAndSetCommits() {
-      const commits = await CommitService.fetchCommits(since);
+      const { commits, error } = await CommitService.fetchCommits(since);
+      setError(error);
       setCommits(commits);
     }
 
