@@ -25,7 +25,7 @@ export const StateProvider: FunctionComponent = ({ children }) => {
   }, [since])
 
   return (
-    <StateContext.Provider value={{...initialState, setSince}}>
+    <StateContext.Provider value={{error, commits, since, setSince}}>
       { children }
     </StateContext.Provider>
   )

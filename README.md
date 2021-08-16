@@ -56,3 +56,4 @@ that came with template
 ### August 16th
 - 10:45 - 11:20 create boilerplate / remove unused parts, start thinking about architecture, document in README.md
 - 11:20 - 12:15 read up a bit on hooks, make a start on the CommitService
+- 12:50 - 13:15 Implement StateContext and StateProvider
