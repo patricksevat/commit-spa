@@ -1,5 +1,6 @@
-import { personalAccessToken } from '../../secret/githubApi'
-import { Iso8601Timestamp, nowTimestamp } from '../utils/date-time';
+import { personalAccessToken } from '../secret/githubApi'
+import { nowTimestamp } from '../utils/date-time';
+import { Iso8601Timestamp } from '../types/date-time';
 
 export const endpoint = 'https://api.github.com/repos/bloomreach/brxm/commits'
 
