@@ -45,6 +45,12 @@ Boilerplate based on [CRA Must Have Libraries](https://www.npmjs.com/package/cra
 - Redux? Context hook?
     - For this assignment Redux might be a bit overkill
 
+### Testing
+
+- Unit tests: use Enzyme for basic component tests, use Jest for service logic
+- Integration tests: check if needed, could be that Enzyme is enough, otherwise Cypress. Will need to remove Puppeteer 
+that came with template
+
 ## Time log
 
 ### August 16th
