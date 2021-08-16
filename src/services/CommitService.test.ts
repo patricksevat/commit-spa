@@ -2,7 +2,7 @@ import { endpoint, CommitService } from './CommitService'
 import { personalAccessToken } from '../secret/githubApi';
 import { ICommit } from '../types/commits';
 
-const mockedCommits: ICommit[] = [{
+export const mockedCommits: ICommit[] = [{
   sha: '123',
   commit: {
     author: {

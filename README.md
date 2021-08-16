@@ -72,3 +72,4 @@ that came with template
 - 13:15 - 14:00 CommitService tests, 
 - 14:00 - 15:00 start on OverviewPage
 - 19:30 - 20:00 Show error when data fetching fails, add shimmer
+- 20:00 - 20:45 Unit tests for CommitOverviewList (struggling with an Enzyme / useContext mocking issue)
