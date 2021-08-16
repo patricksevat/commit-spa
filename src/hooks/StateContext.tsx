@@ -15,6 +15,7 @@ export const StateProvider: FunctionComponent = ({ children }) => {
   const [error, setError] = useState(initialState.error);
   const [commits, setCommits] = useState(initialState.commits);
   const [since, setSince] = useState(initialState.since);
+
   useEffect(() => {
     async function getAndSetCommits() {
       const commits = await CommitService.fetchCommits(since);
@@ -22,6 +23,7 @@ export const StateProvider: FunctionComponent = ({ children }) => {
     }
 
     getAndSetCommits();
+    // TODO since won't be enough, we will probably also need pagination
   }, [since])
 
   return (

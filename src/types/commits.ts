@@ -9,7 +9,6 @@ export interface ICommit {
       date: Iso8601Timestamp
     },
     message: string,
-    url: string
   },
   html_url: string,
   author: {

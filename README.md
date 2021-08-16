@@ -7,7 +7,7 @@ Boilerplate based on [CRA Must Have Libraries](https://www.npmjs.com/package/cra
 - Use React or Angular ✅
 - Css or SCSS/SASS ✅
 - Commit overview
-    - Fetch commits via Github API
+    - Fetch commits via Github API ✅
     - List view, newest on top
         - List item show first line of each commit + timestamp
             - Use ellipsis
@@ -59,4 +59,4 @@ that came with template
 - 10:45 - 11:20 create boilerplate / remove unused parts, start thinking about architecture, document in README.md
 - 11:20 - 12:15 read up a bit on hooks, make a start on the CommitService
 - 12:50 - 13:15 Implement StateContext and StateProvider
-- 13:15 - 
+- 13:15 - 14:00 CommitService tests, 
