@@ -44,6 +44,8 @@ Boilerplate based on [CRA Must Have Libraries](https://www.npmjs.com/package/cra
 
 - Redux? Context hook?
     - For this assignment Redux might be a bit overkill
+    - TODO want to add Suspense?
+    - TODO error handling? Perhaps Error Boundaries
 
 ### Testing
 
@@ -57,3 +59,4 @@ that came with template
 - 10:45 - 11:20 create boilerplate / remove unused parts, start thinking about architecture, document in README.md
 - 11:20 - 12:15 read up a bit on hooks, make a start on the CommitService
 - 12:50 - 13:15 Implement StateContext and StateProvider
+- 13:15 - 

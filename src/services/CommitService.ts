@@ -1,11 +1,12 @@
 import { personalAccessToken } from '../secret/githubApi'
 import { nowTimestamp } from '../utils/date-time';
 import { Iso8601Timestamp } from '../types/date-time';
+import { ICommitState } from '../types/commits';
 
 export const endpoint = 'https://api.github.com/repos/bloomreach/brxm/commits'
 
 class CommitServiceClass {
-  async fetchCommits(since: Iso8601Timestamp = nowTimestamp()) {
+  async fetchCommits(since: Iso8601Timestamp = nowTimestamp()): Promise<ICommitState> {
     const response = await fetch(endpoint, {
       headers: {
         Accept: 'application/vnd.github.v3+json',
@@ -14,10 +15,18 @@ class CommitServiceClass {
     });
 
     if(!response.ok) {
-      // TODO handle error
+      return {
+        error: 'Unable to fetch commits', // TODO translate
+        commits: [],
+        since,
+      }
     }
 
-    return response.json();
+    return {
+      error: '',
+      commits: await response.json(),
+      since
+    }
   }
 }
 
