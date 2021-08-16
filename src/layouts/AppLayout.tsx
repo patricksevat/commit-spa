@@ -4,25 +4,29 @@ import { Typography, AppBar, Toolbar, Select, MenuItem } from '@material-ui/core
 
 export const AppLayout: FunctionComponent = (props) => {
   return (
-    <AppBar>
-      <Toolbar id='toolbar'>
-        <Typography variant="h6">
-          {/* TODO translate
+    <>
+      <AppBar position={'sticky'}>
+        <Toolbar id='toolbar'>
+          <Typography variant="h6">
+            {/* TODO translate
           TODO make this dynamic using context hook
           */}
-          Commit overview app
-        </Typography>
-        <Select id={'appbar__language-selector'} value={'en-us'}>
-          <MenuItem value={'en-us'}>
-            <span role='img' aria-label='Select English'>🇬🇧</span>
-          </MenuItem>
-          <MenuItem value={'nl-nl'}>
+            Commit overview app
+          </Typography>
+          <Select id={'appbar__language-selector'} value={'en-us'}>
+            <MenuItem value={'en-us'}>
+              <span role='img' aria-label='Select English'>🇬🇧</span>
+            </MenuItem>
+            <MenuItem value={'nl-nl'}>
             <span role='img' aria-label='Select Dutch'>
               🇳🇱
             </span>
-          </MenuItem>
-        </Select>
-      </Toolbar>
-    </AppBar>
+            </MenuItem>
+          </Select>
+        </Toolbar>
+      </AppBar>
+      { props.children }
+    </>
+
   );
 }
