@@ -1,16 +1,34 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { CommitOverviewList } from './CommitOverviewList';
+import { Context } from 'react';
 import { Error } from '../Error/Error';
 import { Skeleton } from '@material-ui/lab';
 import { mockedCommits } from '../../services/CommitService.test';
 import { CommitOverviewListItem } from '../CommitOverviewListItem/CommitOverviewListItem';
+import { TranslationContext } from '../../hooks/TranslationContext';
+import { ICommitProviderState } from '../../types/commits';
 
-const useContextMock = jest.spyOn(React, 'useContext').mockImplementation(() => ({
-  commits: [],
-  error: '',
-  setSince: () => {},
-}))
+function createUseContextMockImplementation(value: ICommitProviderState) {
+  return function (context: Context<any>) {
+    if(context === TranslationContext) {
+      return {
+        translate: () => 'translated-string'
+      }
+    }
+
+    return value;
+  }
+}
+
+const useContextMock = jest.spyOn(React, 'useContext').mockImplementation(
+  createUseContextMockImplementation({
+    commits: [],
+    error: '',
+    since: '',
+    setSince: () => {},
+  })
+)
 
 describe('<CommitOverviewList />', () => {
   it('should render a skeleton / shimmer when there are no commits and no errors', () => {
@@ -22,9 +40,10 @@ describe('<CommitOverviewList />', () => {
     const mockState = {
       commits: [],
       error: 'There has been a server error',
+      since: '',
       setSince: () => {},
     }
-    useContextMock.mockReturnValueOnce(mockState)
+    useContextMock.mockImplementation(createUseContextMockImplementation(mockState))
     const component = shallow(<CommitOverviewList/>)
     expect(component.find(Error)).toHaveLength(1);
   });
@@ -33,9 +52,10 @@ describe('<CommitOverviewList />', () => {
     const mockState = {
       commits: mockedCommits,
       error: '',
+      since: '',
       setSince: () => {},
     }
-    useContextMock.mockReturnValueOnce(mockState)
+    useContextMock.mockImplementation(createUseContextMockImplementation(mockState))
     const component = shallow(<CommitOverviewList/>)
     expect(component.find(CommitOverviewListItem)).toHaveLength(mockedCommits.length);
   });

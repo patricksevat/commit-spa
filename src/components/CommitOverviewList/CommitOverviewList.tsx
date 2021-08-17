@@ -16,6 +16,7 @@ export const CommitOverviewList: FunctionComponent = (props) => {
   const commitState = React.useContext(CommitContext);
   const { commits, error, setSince } = commitState;
 
+  // TODO refactor into smaller components
   if(!error && commits.length === 0) {
     return (
       <>
