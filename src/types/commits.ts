@@ -34,10 +34,13 @@ export interface ICommitState {
   numberOfPages: number | undefined,
   commits: ICommit[],
   since: Iso8601Timestamp,
+  until: Iso8601Timestamp,
 }
 
 export interface ICommitProviderState extends ICommitState {
   setSince?: Dispatch<SetStateAction<string>>,
+  setUntil?: Dispatch<SetStateAction<string>>,
+  fetching: boolean,
   setCurrentPage?: Dispatch<SetStateAction<number>>,
   commits: IFormattedCommit[],
   currentPage: number,

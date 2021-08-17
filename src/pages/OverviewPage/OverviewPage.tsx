@@ -4,6 +4,7 @@ import { CommitOverviewList } from '../../components/CommitOverviewList/CommitOv
 export const OverviewPage: FunctionComponent = (props) => {
   return (
     <>
+      {/* TODO remove CommitOverviewList and move it here */}
       <CommitOverviewList/>
       { props.children }
     </>

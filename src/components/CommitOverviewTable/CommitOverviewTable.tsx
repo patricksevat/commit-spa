@@ -6,12 +6,13 @@ import {
   TableContainer,
   TableHead,
   TablePagination,
-  TableRow
+  TableRow, Toolbar
 } from '@material-ui/core';
 import { CommitOverviewListItem } from '../CommitOverviewListItem/CommitOverviewListItem';
 import React from 'react';
 import { CommitContext } from '../../hooks/CommitContext';
 import { TranslationContext } from '../../hooks/TranslationContext';
+import { CommitOverviewTableFilters } from '../CommitOverviewTableFilters/CommitOverviewTableFilters';
 
 export const CommitOverviewTable = () => {
   const { translate } = React.useContext(TranslationContext);
@@ -23,8 +24,11 @@ export const CommitOverviewTable = () => {
   }
 
   return(
-    <>
-      <TableContainer id='commit-overview-table' component={Paper}>
+    <Paper>
+      <Toolbar>
+        <CommitOverviewTableFilters/>
+      </Toolbar>
+      <TableContainer id='commit-overview-table'>
         <Table>
           <TableHead>
             <TableRow>
@@ -49,11 +53,11 @@ export const CommitOverviewTable = () => {
       <TablePagination
         rowsPerPageOptions={[10]}
         component="div"
-        count={numberOfPages || 0}
+        count={numberOfPages || 1}
         rowsPerPage={10}
-        page={currentPage}
+        page={currentPage - 1}
         onPageChange={handleChangePage}
       />
-    </>
+    </Paper>
   )
 }

@@ -29,6 +29,8 @@ const initState = {
   currentPage: 1,
   setCurrentPage: () => {},
   numberOfPages: 20,
+  until: '',
+  fetching: false,
 };
 
 const useContextMock = jest.spyOn(React, 'useContext').mockImplementation(
@@ -36,7 +38,12 @@ const useContextMock = jest.spyOn(React, 'useContext').mockImplementation(
 )
 
 describe('<CommitOverviewList />', () => {
-  it('should render a skeleton / shimmer when there are no commits and no errors', () => {
+  it('should render a skeleton / shimmer when fetching is true', () => {
+    const mockState = {
+      ...initState,
+      fetching: true
+    }
+    useContextMock.mockImplementation(createUseContextMockImplementation(mockState))
     const component = shallow(<CommitOverviewList/>)
     expect(component.contains(<TableSkeleton />)).toBe(true)
   })

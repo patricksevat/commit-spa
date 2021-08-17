@@ -10,9 +10,9 @@ export const CommitOverviewList: FunctionComponent = (props) => {
   // using React.useContext here for easier mocking
   // https://github.com/enzymejs/enzyme/issues/2176#issuecomment-532361526
   const commitState = React.useContext(CommitContext);
-  const { commits, error, setSince } = commitState;
+  const { fetching, error, setSince } = commitState;
 
-  if(!error && commits.length === 0) {
+  if(fetching) {
     return <TableSkeleton/>
   }
 
@@ -24,7 +24,6 @@ export const CommitOverviewList: FunctionComponent = (props) => {
       actionLabel='Retry'
     />
   }
-  // TODO add date selector
 
   return (
     <CommitOverviewTable/>

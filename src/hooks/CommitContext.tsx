@@ -1,6 +1,6 @@
 import React, { createContext, FunctionComponent, useContext, useEffect, useState } from 'react';
 import { ICommitProviderState } from '../types/commits';
-import { nowTimestamp } from '../utils/date-time';
+import { epochStartTimeStamp, nowTimestamp } from '../utils/date-time';
 import { CommitService } from '../services/CommitService';
 import { TranslationContext } from './TranslationContext';
 
@@ -9,7 +9,9 @@ const initialState: ICommitProviderState = {
   numberOfPages: undefined,
   currentPage: 1,
   commits: [],
-  since: nowTimestamp(),
+  since: epochStartTimeStamp(),
+  until: nowTimestamp(),
+  fetching: false,
 }
 
 export const CommitContext = createContext(initialState);
@@ -17,25 +19,34 @@ export const CommitContext = createContext(initialState);
 export const CommitStateProvider: FunctionComponent = ({ children }) => {
   const [error, setError] = useState(initialState.error);
   const [commits, setCommits] = useState(initialState.commits);
+  const [fetching, setFetching] = useState(false);
+
   const [since, setSince] = useState(initialState.since);
+  const [until, setUntil] = useState(initialState.until);
   const [numberOfPages, setNumberOfPages] = useState(initialState.numberOfPages);
   const [currentPage, setCurrentPage] = useState(initialState.currentPage);
+
   const { language } = useContext(TranslationContext);
 
   useEffect(() => {
     async function getAndSetCommits() {
-      const { commits, error, numberOfPages } = await CommitService.fetchCommits(since, currentPage);
+      setFetching(true);
+      const { commits, error, numberOfPages } = await CommitService.fetchCommits({
+        since,
+        until,
+        page: currentPage
+      });
       setNumberOfPages(numberOfPages);
       setError(error);
       setCommits(CommitService.formatCommits(commits, language));
+      setFetching(false);
     }
 
     getAndSetCommits();
-    // TODO since won't be enough, we will probably also need pagination
-  }, [since, language, currentPage])
+  }, [since, until, language, currentPage])
 
   return (
-    <CommitContext.Provider value={{error, commits, since, setSince, numberOfPages, currentPage, setCurrentPage}}>
+    <CommitContext.Provider value={{error, commits, since, setSince, until, setUntil, numberOfPages, currentPage, setCurrentPage, fetching}}>
       { children }
     </CommitContext.Provider>
   )

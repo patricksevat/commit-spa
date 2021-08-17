@@ -38,14 +38,14 @@ describe('CommitService', () => {
 
   describe('fetchCommits()', () => {
     it('should call the Github API', async function () {
-      await CommitService.fetchCommits();
+      await CommitService.fetchCommits({ since: 'api', page: 1, until: ''});
 
       const call = fetchMock.mock.calls[0];
       expect(call[0]).toContain(endpoint);
     });
 
     it('should add correct headers', async function () {
-      await CommitService.fetchCommits();
+      await CommitService.fetchCommits({ since: 'headers', page: 1, until: ''});
 
       const call = fetchMock.mock.calls[0];
       expect(call[1]).toMatchObject({
@@ -57,7 +57,7 @@ describe('CommitService', () => {
     });
 
     it('should return commits', async function () {
-      const result = await CommitService.fetchCommits('iso8601');
+      const result = await CommitService.fetchCommits({ since: 'iso8601', page: 1, until: ''});
 
       expect(result).toMatchObject({
         error: '',
@@ -72,7 +72,7 @@ describe('CommitService', () => {
         status: 500,
       }));
 
-      const result = await CommitService.fetchCommits('error');
+      const result = await CommitService.fetchCommits({ since: 'error', page: 1, until: ''});
 
       expect(result).toMatchObject({
         error: 'Unable to fetch commits',
@@ -81,9 +81,9 @@ describe('CommitService', () => {
       })
     });
 
-    it('should utilize caching on same since', async function () {
-      await CommitService.fetchCommits('duplicate_since');
-      await CommitService.fetchCommits('duplicate_since');
+    it('should utilize caching on same since, until and page', async function () {
+      await CommitService.fetchCommits({ since: 'duplicate_since', page: 1, until: 'until'});
+      await CommitService.fetchCommits({ since: 'duplicate_since', page: 1, until: 'until'});
       expect(fetchMock).toHaveBeenCalledTimes(1);
     });
   })
