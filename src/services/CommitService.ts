@@ -2,6 +2,7 @@ import { personalAccessToken } from '../secret/githubApi'
 import { nowTimestamp } from '../utils/date-time';
 import { Iso8601Timestamp } from '../types/date-time';
 import { ICommit, ICommitState, IFormattedCommit } from '../types/commits';
+import { applyQueryParams } from '../utils/fetch';
 
 export const endpoint = 'https://api.github.com/repos/vuejs/vue/commits'
 
@@ -12,13 +13,23 @@ class CommitServiceClass {
     Accept: 'application/vnd.github.v3+json',
     Authorization: `token ${personalAccessToken}`
   };
+  private defaultQueryParams = {
+    per_page: 10
+  }
+  // TODO we are now duplicating state. Both here and in CommitContext. Perhaps we can keep state there and give fetchCommits a `useCache` param
+  private currentPage = 1;
+  private totalNumberOfPages: number|undefined = undefined;
+  private linkHeaderPagesRegEx = /&page=(\d+)/
 
-  async fetchCommits(since: Iso8601Timestamp = nowTimestamp()): Promise<ICommitState> {
-    if(since === this.sinceCache) {
+  async fetchCommits(since: Iso8601Timestamp = nowTimestamp(), page = 1): Promise<ICommitState> {
+    if(since === this.sinceCache && this.currentPage === page) {
       return this.returnCache();
     }
 
-    const response = await fetch(endpoint, {
+    const response = await fetch(applyQueryParams(endpoint, {
+      ...this.defaultQueryParams,
+      page,
+    }), {
       headers: this.headers
     });
 
@@ -26,13 +37,12 @@ class CommitServiceClass {
       return this.returnError(since);
     }
 
-    const commits = await response.json();
-    this.sinceCache = since;
-    this.commitCache = commits;
+    await this.handleSuccess(response, { since, page });
 
     return {
       error: '',
-      commits,
+      numberOfPages: this.totalNumberOfPages,
+      commits: this.commitCache,
       since
     }
   }
@@ -50,6 +60,7 @@ class CommitServiceClass {
     return {
       error: '',
       commits: this.commitCache,
+      numberOfPages: this.totalNumberOfPages,
       since: this.sinceCache,
     }
   }
@@ -57,9 +68,34 @@ class CommitServiceClass {
   private returnError(since: Iso8601Timestamp) {
     return {
       error: 'Unable to fetch commits', // TODO translate
+      numberOfPages: undefined,
       commits: [],
       since,
     }
+  }
+
+  private async handleSuccess(response: Response, { since, page }: {since: Iso8601Timestamp, page: number}) {
+    const commits = await response.json();
+    this.totalNumberOfPages = this.getTotalNumberOfPagesFromHeaders(response);
+    this.sinceCache = since;
+    this.currentPage = page;
+    this.commitCache = commits;
+  }
+
+  private getTotalNumberOfPagesFromHeaders(response: Response): number|undefined {
+    const headers = response.headers;
+    // example:
+    // <https://api.github.com/repositories/11730342/commits?per_page=10&page=2>; rel="next", <https://api.github.com/repositories/11730342/commits?per_page=10&page=320>; rel="last"
+    const linkHeader = headers.get('Link');
+    if(!linkHeader) {
+      return undefined
+    }
+
+    const splitLinkHeader = linkHeader.split(',')
+    const linkToLastPage = splitLinkHeader.find(link => link.includes('rel="last"'));
+    const matches = linkToLastPage && linkToLastPage.match(this.linkHeaderPagesRegEx);
+
+    return matches ? Number(matches[1]) : undefined
   }
 }
 

@@ -1,8 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import './CommitOverviewList.scss'
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import { CommitContext } from '../../hooks/CommitContext';
-import { CommitOverviewListItem } from '../CommitOverviewListItem/CommitOverviewListItem';
 import { Error } from '../Error/Error';
 import { nowTimestamp } from '../../utils/date-time';
 import { TableSkeleton } from '../Skeleton/Skeleton';

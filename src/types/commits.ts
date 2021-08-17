@@ -31,11 +31,14 @@ export interface IFormattedCommit extends ICommit {
 
 export interface ICommitState {
   error: string,
+  numberOfPages: number | undefined,
   commits: ICommit[],
   since: Iso8601Timestamp,
 }
 
 export interface ICommitProviderState extends ICommitState {
-  setSince?: Dispatch<SetStateAction<string>>;
+  setSince?: Dispatch<SetStateAction<string>>,
+  setCurrentPage?: Dispatch<SetStateAction<number>>,
   commits: IFormattedCommit[],
+  currentPage: number,
 }
