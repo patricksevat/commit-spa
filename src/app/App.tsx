@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { StateProvider } from '../hooks/StateContext';
+import { CommitStateProvider } from '../hooks/CommitContext';
 import { AppLayout } from '../layouts/AppLayout';
 import { TranslationsProvider } from '../hooks/TranslationContext';
 import AppRouter from './AppRouter';
@@ -7,11 +7,11 @@ import AppRouter from './AppRouter';
 export const App: FunctionComponent = () => {
   return (
     <TranslationsProvider>
-      <StateProvider>
+      <CommitStateProvider>
         <AppLayout>
           <AppRouter/>
         </AppLayout>
-      </StateProvider>
+      </CommitStateProvider>
     </TranslationsProvider>
   )
 }

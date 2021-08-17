@@ -35,7 +35,7 @@ export interface ICommitState {
   since: Iso8601Timestamp,
 }
 
-export interface IProviderState extends ICommitState {
+export interface ICommitProviderState extends ICommitState {
   setSince?: Dispatch<SetStateAction<string>>;
   commits: IFormattedCommit[],
 }

@@ -5,7 +5,6 @@ export const CommitOverviewListItem: FunctionComponent<ICommitOverviewListItemPr
   return (
     <TableRow>
       <TableCell>{ message }</TableCell>
-      {/* TODO format locale date string */}
       <TableCell>{ date || '' }</TableCell>
       <TableCell>{ author }</TableCell>
     </TableRow>

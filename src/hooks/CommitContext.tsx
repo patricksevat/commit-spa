@@ -1,18 +1,18 @@
 import React, { createContext, FunctionComponent, useContext, useEffect, useState } from 'react';
-import { IProviderState } from '../types/commits';
+import { ICommitProviderState } from '../types/commits';
 import { nowTimestamp } from '../utils/date-time';
 import { CommitService } from '../services/CommitService';
 import { TranslationContext } from './TranslationContext';
 
-const initialState: IProviderState = {
+const initialState: ICommitProviderState = {
   error: '',
   commits: [],
   since: nowTimestamp(),
 }
 
-export const StateContext = createContext(initialState);
+export const CommitContext = createContext(initialState);
 
-export const StateProvider: FunctionComponent = ({ children }) => {
+export const CommitStateProvider: FunctionComponent = ({ children }) => {
   const [error, setError] = useState(initialState.error);
   const [commits, setCommits] = useState(initialState.commits);
   const [since, setSince] = useState(initialState.since);
@@ -30,8 +30,8 @@ export const StateProvider: FunctionComponent = ({ children }) => {
   }, [since, language])
 
   return (
-    <StateContext.Provider value={{error, commits, since, setSince}}>
+    <CommitContext.Provider value={{error, commits, since, setSince}}>
       { children }
-    </StateContext.Provider>
+    </CommitContext.Provider>
   )
 }

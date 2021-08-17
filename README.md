@@ -74,3 +74,7 @@ that came with template
 - 19:30 - 20:00 Show error when data fetching fails, add shimmer
 - 20:00 - 20:45 Unit tests for CommitOverviewList (struggling with an Enzyme / useContext mocking issue)
 - 21:00 - 22:00 Add translations
+
+### August 17th
+- 08:30 - 08:40 refactor AppRouter.tsx
+- 10:45 - 11:15 Make dates locale specific, connect StateContext and TranslationContext, update tests

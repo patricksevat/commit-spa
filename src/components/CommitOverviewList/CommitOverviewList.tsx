@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import './CommitOverviewList.scss'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
-import { StateContext } from '../../hooks/StateContext';
+import { CommitContext } from '../../hooks/CommitContext';
 import { CommitOverviewListItem } from '../CommitOverviewListItem/CommitOverviewListItem';
 import { Error } from '../Error/Error';
 import { nowTimestamp } from '../../utils/date-time';
@@ -13,7 +13,7 @@ export const CommitOverviewList: FunctionComponent = (props) => {
 
   // using React.useContext here for easier mocking
   // https://github.com/enzymejs/enzyme/issues/2176#issuecomment-532361526
-  const commitState = React.useContext(StateContext);
+  const commitState = React.useContext(CommitContext);
   const { commits, error, setSince } = commitState;
 
   if(!error && commits.length === 0) {
