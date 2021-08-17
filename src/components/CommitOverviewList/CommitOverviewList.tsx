@@ -54,7 +54,9 @@ export const CommitOverviewList: FunctionComponent = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {commits.map((commit) => <CommitOverviewListItem key={commit.sha} message={commit.commit.message} date={commit.commit.author.date} author={commit.author.login}/>)}
+          {commits.map((commit) =>
+            <CommitOverviewListItem key={commit.sha} message={commit.commit.message} date={commit.commit.author.formattedDate} author={commit.author.login}/>
+          )}
         </TableBody>
       </Table>
     </TableContainer>

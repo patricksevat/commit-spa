@@ -5,7 +5,8 @@ export const CommitOverviewListItem: FunctionComponent<ICommitOverviewListItemPr
   return (
     <TableRow>
       <TableCell>{ message }</TableCell>
-      <TableCell>{ date }</TableCell>
+      {/* TODO format locale date string */}
+      <TableCell>{ date || '' }</TableCell>
       <TableCell>{ author }</TableCell>
     </TableRow>
   )
@@ -13,6 +14,6 @@ export const CommitOverviewListItem: FunctionComponent<ICommitOverviewListItemPr
 
 interface ICommitOverviewListItemProps {
   message: string,
-  date: string,
+  date: string | undefined,
   author: string
 }

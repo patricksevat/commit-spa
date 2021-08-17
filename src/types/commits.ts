@@ -1,4 +1,4 @@
-import { Iso8601Timestamp } from './date-time';
+import { Iso8601Timestamp, LocaleFormattedDate } from './date-time';
 import { Dispatch, SetStateAction } from 'react';
 
 export interface ICommit {
@@ -18,6 +18,17 @@ export interface ICommit {
   }
 }
 
+export interface IFormattedCommit extends ICommit {
+  commit: {
+    author: {
+      name: string,
+      date: Iso8601Timestamp,
+      formattedDate?: LocaleFormattedDate
+    },
+    message: string,
+  }
+}
+
 export interface ICommitState {
   error: string,
   commits: ICommit[],
@@ -26,4 +37,5 @@ export interface ICommitState {
 
 export interface IProviderState extends ICommitState {
   setSince?: Dispatch<SetStateAction<string>>;
+  commits: IFormattedCommit[],
 }
