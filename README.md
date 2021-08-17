@@ -78,3 +78,5 @@ that came with template
 ### August 17th
 - 08:30 - 08:40 refactor AppRouter.tsx
 - 10:45 - 11:15 Make dates locale specific, connect StateContext and TranslationContext, update tests
+- 11:45 - 11:40 fix CommitOverviewList.test.tsx
+

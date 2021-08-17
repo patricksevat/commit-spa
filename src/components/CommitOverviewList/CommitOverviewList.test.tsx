@@ -3,11 +3,11 @@ import { shallow } from 'enzyme'
 import { CommitOverviewList } from './CommitOverviewList';
 import { Context } from 'react';
 import { Error } from '../Error/Error';
-import { Skeleton } from '@material-ui/lab';
 import { mockedCommits } from '../../services/CommitService.test';
-import { CommitOverviewListItem } from '../CommitOverviewListItem/CommitOverviewListItem';
 import { TranslationContext } from '../../hooks/TranslationContext';
 import { ICommitProviderState } from '../../types/commits';
+import { TableSkeleton } from '../Skeleton/Skeleton';
+import { CommitOverviewTable } from '../CommitOverviewTable/CommitOverviewTable';
 
 function createUseContextMockImplementation(value: ICommitProviderState) {
   return function (context: Context<any>) {
@@ -33,7 +33,7 @@ const useContextMock = jest.spyOn(React, 'useContext').mockImplementation(
 describe('<CommitOverviewList />', () => {
   it('should render a skeleton / shimmer when there are no commits and no errors', () => {
     const component = shallow(<CommitOverviewList/>)
-    expect(component.contains(<Skeleton variant="text" animation="wave" />)).toBe(true)
+    expect(component.contains(<TableSkeleton />)).toBe(true)
   })
 
   it('should render an error when there is an error', function () {
@@ -57,6 +57,6 @@ describe('<CommitOverviewList />', () => {
     }
     useContextMock.mockImplementation(createUseContextMockImplementation(mockState))
     const component = shallow(<CommitOverviewList/>)
-    expect(component.find(CommitOverviewListItem)).toHaveLength(mockedCommits.length);
+    expect(component.find(CommitOverviewTable)).toHaveLength(mockedCommits.length);
   });
 })
