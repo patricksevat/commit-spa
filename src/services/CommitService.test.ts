@@ -23,6 +23,9 @@ const fetchMock = jest.fn(() => {
   return Promise.resolve({
     json: () => Promise.resolve(mockedCommits),
     ok: true,
+    headers: {
+      get: () => `<https://api.github.com/repositories/11730342/commits?per_page=10&page=2>; rel="next", <https://api.github.com/repositories/11730342/commits?per_page=10&page=320>; rel="last"`
+    }
   })
 }) as jest.Mock;
 
@@ -38,7 +41,7 @@ describe('CommitService', () => {
       await CommitService.fetchCommits();
 
       const call = fetchMock.mock.calls[0];
-      expect(call[0]).toBe(endpoint);
+      expect(call[0]).toContain(endpoint);
     });
 
     it('should add correct headers', async function () {

@@ -21,13 +21,18 @@ function createUseContextMockImplementation(value: ICommitProviderState) {
   }
 }
 
+const initState = {
+  commits: [],
+  error: '',
+  since: '',
+  setSince: () => {},
+  currentPage: 1,
+  setCurrentPage: () => {},
+  numberOfPages: 20,
+};
+
 const useContextMock = jest.spyOn(React, 'useContext').mockImplementation(
-  createUseContextMockImplementation({
-    commits: [],
-    error: '',
-    since: '',
-    setSince: () => {},
-  })
+  createUseContextMockImplementation(initState)
 )
 
 describe('<CommitOverviewList />', () => {
@@ -38,10 +43,8 @@ describe('<CommitOverviewList />', () => {
 
   it('should render an error when there is an error', function () {
     const mockState = {
-      commits: [],
+      ...initState,
       error: 'There has been a server error',
-      since: '',
-      setSince: () => {},
     }
     useContextMock.mockImplementation(createUseContextMockImplementation(mockState))
     const component = shallow(<CommitOverviewList/>)
@@ -50,10 +53,8 @@ describe('<CommitOverviewList />', () => {
 
   it('should render the table when there\'s no error and commits available', function () {
     const mockState = {
+      ...initState,
       commits: mockedCommits,
-      error: '',
-      since: '',
-      setSince: () => {},
     }
     useContextMock.mockImplementation(createUseContextMockImplementation(mockState))
     const component = shallow(<CommitOverviewList/>)
