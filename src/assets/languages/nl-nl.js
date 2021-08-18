@@ -6,7 +6,9 @@ const dutch = {
   until: 'Tot',
   errorLoadingData: 'Fout bij het ophalen van commits',
   'toolbarTitle/': 'Commit overzicht',
-  'toolbarTitle/commit': 'Commit details'
+  'toolbarTitle/commit': 'Commit details',
+  noSelectedCommit: 'Geselecteerde commit niet gevonden, keer terug naar overzicht',
+  toOverview: 'Naar overzicht'
 }
 
 export default dutch;

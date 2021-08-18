@@ -46,7 +46,7 @@ export const CommitOverviewTable = () => {
           </TableHead>
           <TableBody>
             {commits.map((commit) =>
-              <CommitOverviewListItem key={commit.sha} sha={commit.sha} message={commit.commit.message} date={commit.commit.author.formattedDate} author={commit.author.login}/>
+              <CommitOverviewListItem key={commit.sha} commit={commit}/>
             )}
           </TableBody>
         </Table>

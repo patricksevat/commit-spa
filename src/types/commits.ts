@@ -35,13 +35,15 @@ export interface ICommitState {
   commits: ICommit[],
   since: Iso8601Timestamp,
   until: Iso8601Timestamp,
+  currentPage: number,
+  fetching: boolean,
+  selectedCommit: IFormattedCommit | undefined
 }
 
 export interface ICommitProviderState extends ICommitState {
   setSince?: Dispatch<SetStateAction<string>>,
   setUntil?: Dispatch<SetStateAction<string>>,
-  fetching: boolean,
   setCurrentPage?: Dispatch<SetStateAction<number>>,
+  setSelectedCommit?: Dispatch<SetStateAction<IFormattedCommit | undefined>>,
   commits: IFormattedCommit[],
-  currentPage: number,
 }

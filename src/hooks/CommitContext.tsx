@@ -12,6 +12,7 @@ const initialState: ICommitProviderState = {
   since: epochStartTimeStamp(),
   until: nowTimestamp(),
   fetching: false,
+  selectedCommit: undefined,
 }
 
 export const CommitContext = createContext(initialState);
@@ -22,7 +23,8 @@ export const CommitStateProvider: FunctionComponent = ({ children }) => {
   // as Context consumers only consume (formatted) commits there should be no performance penalty for re-rendering
   const [unformattedCommits, setUnformattedCommits] = useState(initialState.commits)
   const [commits, setCommits] = useState(initialState.commits);
-  const [fetching, setFetching] = useState(false);
+  const [selectedCommit, setSelectedCommit] = useState(initialState.selectedCommit);
+  const [fetching, setFetching] = useState(initialState.fetching);
   const [error, setError] = useState(initialState.error);
 
   const [since, setSince] = useState(initialState.since);
@@ -54,7 +56,9 @@ export const CommitStateProvider: FunctionComponent = ({ children }) => {
   }, [language, unformattedCommits])
 
   return (
-    <CommitContext.Provider value={{error, commits, since, setSince, until, setUntil, numberOfPages, currentPage, setCurrentPage, fetching}}>
+    <CommitContext.Provider value={
+      {error, commits, since, setSince, until, setUntil, numberOfPages, currentPage, setCurrentPage, fetching, selectedCommit, setSelectedCommit}
+    }>
       { children }
     </CommitContext.Provider>
   )

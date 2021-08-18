@@ -1,13 +1,26 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import { TableCell, TableRow } from '@material-ui/core';
 import './CommitOverviewListItem.scss'
 import { useHistory } from 'react-router-dom';
+import { IFormattedCommit } from '../../types/commits';
+import { CommitContext } from '../../hooks/CommitContext';
 
-export const CommitOverviewListItem: FunctionComponent<ICommitOverviewListItemProps> = ({ message, date, author, sha}) => {
+export const CommitOverviewListItem: FunctionComponent<ICommitOverviewListItemProps> = ({ commit }) => {
   const history = useHistory();
+  const { setSelectedCommit } = useContext(CommitContext)
+
+  const sha = commit.sha;
+  const message= commit.commit.message
+  const date= commit.commit.author.formattedDate
+  const author= commit.author.login
+
+  function handleRowClick() {
+    setSelectedCommit && setSelectedCommit(commit);
+    history.push(`/commit/${sha}`)
+  }
 
   return (
-    <TableRow className={'commit-overview-list-item'} onClick={() => history.push(`/commit/${sha}`)}>
+    <TableRow className={'commit-overview-list-item'} onClick={handleRowClick}>
       <TableCell className={'commit-overview-list-item__message'}>
         <div className={'commit-overview-list-item__message--ellipsis'} title={message}>{ message }</div>
       </TableCell>
@@ -18,8 +31,5 @@ export const CommitOverviewListItem: FunctionComponent<ICommitOverviewListItemPr
 }
 
 interface ICommitOverviewListItemProps {
-  sha: string,
-  message: string,
-  date: string | undefined,
-  author: string
+  commit: IFormattedCommit
 }

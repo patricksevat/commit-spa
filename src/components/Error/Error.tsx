@@ -1,11 +1,9 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Alert } from '@material-ui/lab';
 import { Button } from '@material-ui/core';
 import './Error.scss';
-import { TranslationContext } from '../../hooks/TranslationContext';
 
 export const Error: FunctionComponent<IErrorProps> = (props) => {
-  const { translate } = useContext(TranslationContext);
   let action = props.action ? <Button className='error__retry-button' onClick={props.action}>{ props.actionLabel }</Button> : null;
 
   return (
@@ -13,7 +11,7 @@ export const Error: FunctionComponent<IErrorProps> = (props) => {
       variant='filled'
       severity='error'
       action={action}
-    >{ translate(props.message) }</Alert>
+    >{ props.message }</Alert>
   )
 }
 
