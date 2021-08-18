@@ -41,7 +41,7 @@ class CommitServiceClass {
 
   private returnError({ since, until }: Omit<IFetchCommitOptions, 'page'>) {
     return {
-      error: 'Unable to fetch commits', // TODO translate
+      error: 'unableToFetchCommits',
       numberOfPages: undefined,
       commits: [],
       since,

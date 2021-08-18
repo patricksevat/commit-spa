@@ -12,7 +12,7 @@ const initialState: ITranslationProvider = {
 export const TranslationContext = createContext(initialState);
 
 export const TranslationsProvider: FunctionComponent = ({ children }) => {
-  const [language, setLanguage] = useState('en-us');
+  const [language, setLanguage] = useState(localStorage.getItem('language') || 'en-us');
   // Not exactly sure what React magic is going on here, but without calling setTranslations, rerendering is not being performed
   const [, setTranslations] = useState(TranslationService.translations)
 

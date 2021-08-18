@@ -4,11 +4,12 @@ class TranslationServiceClass {
   translations: Record<string, string> = {}
 
   constructor() {
-    this.setLanguage('en-us');
+    const languageSavedInLocalStorage = localStorage.getItem('language') as SupportedLanguages;
+    this.setLanguage(languageSavedInLocalStorage || 'en-us');
   }
 
-  // TODO write to localStorage
   async setLanguage(language: SupportedLanguages) {
+    localStorage.setItem('language', language);
     const translationsDynamicImport = await import(`../assets/languages/${language}`);
     this.translations = {
       ...this.translations,
