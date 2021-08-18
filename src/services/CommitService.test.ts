@@ -80,12 +80,6 @@ describe('CommitService', () => {
         since: 'error'
       })
     });
-
-    it('should utilize caching on same since, until and page', async function () {
-      await CommitService.fetchCommits({ since: 'duplicate_since', page: 1, until: 'until'});
-      await CommitService.fetchCommits({ since: 'duplicate_since', page: 1, until: 'until'});
-      expect(fetchMock).toHaveBeenCalledTimes(1);
-    });
   })
 
   describe('formatCommits()', () => {

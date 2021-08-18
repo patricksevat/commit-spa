@@ -17,9 +17,13 @@ const initialState: ICommitProviderState = {
 export const CommitContext = createContext(initialState);
 
 export const CommitStateProvider: FunctionComponent = ({ children }) => {
-  const [error, setError] = useState(initialState.error);
+  // Differentiate between unformattedCommits and formatted commits so we can apply translations
+  // to commits without having to make another API call retrieving the same commits
+  // as Context consumers only consume (formatted) commits there should be no performance penalty for re-rendering
+  const [unformattedCommits, setUnformattedCommits] = useState(initialState.commits)
   const [commits, setCommits] = useState(initialState.commits);
   const [fetching, setFetching] = useState(false);
+  const [error, setError] = useState(initialState.error);
 
   const [since, setSince] = useState(initialState.since);
   const [until, setUntil] = useState(initialState.until);
@@ -38,12 +42,16 @@ export const CommitStateProvider: FunctionComponent = ({ children }) => {
       });
       setNumberOfPages(numberOfPages);
       setError(error);
-      setCommits(CommitService.formatCommits(commits, language));
+      setUnformattedCommits(commits);
       setFetching(false);
     }
 
     getAndSetCommits();
-  }, [since, until, language, currentPage])
+  }, [since, until, currentPage])
+
+  useEffect(() => {
+    setCommits(CommitService.formatCommits(unformattedCommits, language))
+  }, [language, unformattedCommits])
 
   return (
     <CommitContext.Provider value={{error, commits, since, setSince, until, setUntil, numberOfPages, currentPage, setCurrentPage, fetching}}>

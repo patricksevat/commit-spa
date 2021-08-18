@@ -6,9 +6,6 @@ import { applyQueryParams } from '../utils/fetch';
 export const endpoint = 'https://api.github.com/repos/vuejs/vue/commits'
 
 class CommitServiceClass {
-  private sinceCache = '';
-  private untilCache = '';
-  private commitCache: ICommit[] = [];
   private headers = {
     Accept: 'application/vnd.github.v3+json',
     Authorization: `token ${personalAccessToken}`
@@ -16,17 +13,9 @@ class CommitServiceClass {
   private defaultQueryParams = {
     per_page: 10
   }
-  // TODO we are now duplicating state. Both here and in CommitContext. Perhaps we can keep state there and give fetchCommits a `useCache` param
-  private currentPage = 1;
-  private totalNumberOfPages: number|undefined = undefined;
   private linkHeaderPagesRegEx = /&page=(\d+)/
 
   async fetchCommits({ since, until, page }: IFetchCommitOptions): Promise<ICommitState> {
-    if(since === this.sinceCache && this.currentPage === page && until === this.untilCache) {
-      console.log('returning cache')
-      return this.returnCache();
-    }
-
     const response = await fetch(applyQueryParams(endpoint, {
       ...this.defaultQueryParams,
       page,
@@ -38,15 +27,7 @@ class CommitServiceClass {
       return this.returnError({ since, until });
     }
 
-    await this.handleSuccess(response, { since, page, until });
-
-    return {
-      error: '',
-      numberOfPages: this.totalNumberOfPages,
-      commits: this.commitCache,
-      since,
-      until,
-    }
+    return this.returnSuccess(response, { since, page, until });
   }
 
   formatCommits(commits: ICommit[], locale: string|undefined = undefined): IFormattedCommit[] {
@@ -56,18 +37,6 @@ class CommitServiceClass {
       clonedCommit.commit.author.formattedDate = new Intl.DateTimeFormat(locale, { dateStyle: 'full', timeStyle: 'medium' }).format(date)
       return commit;
     })
-  }
-
-  // Cache is implemented so the formattedDate is recalculated when changing language
-  // without the need for a new API call
-  private returnCache() {
-    return {
-      error: '',
-      commits: this.commitCache,
-      numberOfPages: this.totalNumberOfPages,
-      since: this.sinceCache,
-      until: this.untilCache,
-    }
   }
 
   private returnError({ since, until }: Omit<IFetchCommitOptions, 'page'>) {
@@ -80,13 +49,15 @@ class CommitServiceClass {
     }
   }
 
-  private async handleSuccess(response: Response, { since, page, until }: IFetchCommitOptions) {
+  private async returnSuccess(response: Response, { since, page, until }: IFetchCommitOptions) {
     const commits = await response.json();
-    this.totalNumberOfPages = this.getTotalNumberOfPagesFromHeaders(response);
-    this.sinceCache = since;
-    this.untilCache = until;
-    this.currentPage = page;
-    this.commitCache = commits;
+    return {
+      error: '',
+      numberOfPages: this.getTotalNumberOfPagesFromHeaders(response),
+      commits,
+      since,
+      until,
+    }
   }
 
   private getTotalNumberOfPagesFromHeaders(response: Response): number {
