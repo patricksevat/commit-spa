@@ -2,6 +2,7 @@ import React, { ChangeEvent, FunctionComponent, useContext } from 'react';
 import './AppLayout.scss';
 import { Typography, AppBar, Toolbar, Select, MenuItem } from '@material-ui/core';
 import { TranslationContext } from '../hooks/TranslationContext';
+import { useLocation } from 'react-router-dom';
 
 export const AppLayout: FunctionComponent = (props) => {
   const { setLanguage, translate, language } = useContext(TranslationContext);
@@ -11,13 +12,14 @@ export const AppLayout: FunctionComponent = (props) => {
     setLanguage && setLanguage(target.value);
   }
 
+  const location = useLocation();
+
   return (
     <>
       <AppBar position={'sticky'}>
         <Toolbar id='toolbar'>
           <Typography variant="h6">
-            {/* TODO make this dynamic using context hook */}
-            { translate('toolbarTitle')}
+            { translate(`toolbarTitle${location.pathname}`)}
           </Typography>
           <Select id={'appbar__language-selector'} value={language} onChange={handleLanguageChange}>
             <MenuItem value={'en-us'}>

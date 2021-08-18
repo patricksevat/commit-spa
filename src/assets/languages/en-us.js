@@ -2,9 +2,11 @@ const english = {
   message: 'Message',
   date: 'Date',
   author: 'Author',
-  toolbarTitle: 'Commit overview app',
   since: 'Since',
-  until: 'Until'
+  until: 'Until',
+  errorLoadingData: 'Could not load data',
+  'toolbarTitle/': 'Commit overview',
+  'toolbarTitle/detail': 'Commit detail'
 }
 
 export default english;
