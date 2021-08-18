@@ -12,14 +12,15 @@ export const AppLayout: FunctionComponent = (props) => {
     setLanguage && setLanguage(target.value);
   }
 
-  const location = useLocation();
+  const { pathname } = useLocation();
+  const pathSegments = pathname.split('/')
 
   return (
     <>
       <AppBar position={'sticky'}>
         <Toolbar id='toolbar'>
           <Typography variant="h6">
-            { translate(`toolbarTitle${location.pathname}`)}
+            { translate(`toolbarTitle/${pathSegments[1]}`)}
           </Typography>
           <Select id={'appbar__language-selector'} value={language} onChange={handleLanguageChange}>
             <MenuItem value={'en-us'}>

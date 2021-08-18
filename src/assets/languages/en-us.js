@@ -6,7 +6,7 @@ const english = {
   until: 'Until',
   errorLoadingData: 'Could not load data',
   'toolbarTitle/': 'Commit overview',
-  'toolbarTitle/detail': 'Commit detail'
+  'toolbarTitle/commit': 'Commit detail'
 }
 
 export default english;

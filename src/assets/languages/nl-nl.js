@@ -6,7 +6,7 @@ const dutch = {
   until: 'Tot',
   errorLoadingData: 'Fout bij het ophalen van commits',
   'toolbarTitle/': 'Commit overzicht',
-  'toolbarTitle/detail': 'Commit details'
+  'toolbarTitle/commit': 'Commit details'
 }
 
 export default dutch;
