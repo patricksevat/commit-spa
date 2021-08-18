@@ -10,13 +10,14 @@ const AppRouter: FunctionComponent = () => {
   return (
     <Router>
       <Suspense fallback={<span>Loading...</span>}>
-        <Switch>
           <AppLayout>
-            <Route path="/" exact component={OverviewPage}/>
-            <Route path='/commit/:id' component={DetailPage}/>
-            <Redirect to='/' />
+            <Switch>
+              <Route path="/" exact component={OverviewPage}/>
+              <Route path='/commit/:id' exact component={DetailPage}/>
+              <Redirect to='/' />
+            </Switch>
           </AppLayout>
-        </Switch>
+
       </Suspense>
     </Router>
   )
