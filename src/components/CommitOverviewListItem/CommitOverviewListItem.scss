@@ -1,21 +1,27 @@
 .commit-overview-list-item {
-  &__message {
-    &--ellipsis {
-      max-height: 1.1em;
-      color: transparent;
-      position: relative;
+  cursor: pointer;
 
-      &::after {
-        color: black;
-        content: attr(title);
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
+  &:hover {
+    background: #eee;
+  }
+}
+
+.commit-overview-list-item__message {
+  &--ellipsis {
+    max-height: 1.1em;
+    color: transparent;
+    position: relative;
+
+    &::after {
+      color: black;
+      content: attr(title);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
   }
 }
