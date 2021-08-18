@@ -25,7 +25,7 @@ export const CommitOverviewTable = () => {
 
   return(
     <Paper>
-      <Toolbar>
+      <Toolbar disableGutters={true}>
         <CommitOverviewTableFilters/>
       </Toolbar>
       <TableContainer id='commit-overview-table'>
