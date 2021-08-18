@@ -15,6 +15,7 @@ export const AppLayout: FunctionComponent = (props) => {
   const { pathname } = useLocation();
   const pathSegments = pathname.split('/')
 
+  // TODO add menu or home button
   return (
     <>
       <AppBar position={'sticky'}>
