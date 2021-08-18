@@ -13,6 +13,7 @@ import React from 'react';
 import { CommitContext } from '../../hooks/CommitContext';
 import { TranslationContext } from '../../hooks/TranslationContext';
 import { CommitOverviewTableFilters } from '../CommitOverviewTableFilters/CommitOverviewTableFilters';
+import './CommitOverviewTable.scss'
 
 export const CommitOverviewTable = () => {
   const { translate } = React.useContext(TranslationContext);
@@ -32,13 +33,13 @@ export const CommitOverviewTable = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>
+              <TableCell className='commit-overview-table__header-cell'>
                 { translate('message') }
               </TableCell>
-              <TableCell>
+              <TableCell className='commit-overview-table__header-cell'>
                 { translate('date') }
               </TableCell>
-              <TableCell>
+              <TableCell className='commit-overview-table__header-cell'>
                 { translate('author') }
               </TableCell>
             </TableRow>
