@@ -44,6 +44,15 @@ describe('CommitService', () => {
       expect(call[0]).toContain(endpoint);
     });
 
+    it('should call the Github API with queryParams', async function () {
+      await CommitService.fetchCommits({ since: 'api', page: 1, until: ''});
+
+      const call = fetchMock.mock.calls[0];
+      expect(call[0]).toContain('page=');
+      expect(call[0]).toContain('until=');
+      expect(call[0]).toContain('since=');
+    });
+
     it('should add correct headers', async function () {
       await CommitService.fetchCommits({ since: 'headers', page: 1, until: ''});
 
@@ -59,10 +68,12 @@ describe('CommitService', () => {
     it('should return commits', async function () {
       const result = await CommitService.fetchCommits({ since: 'iso8601', page: 1, until: ''});
 
+      expect(fetchMock).toHaveBeenCalledTimes(1);
       expect(result).toMatchObject({
         error: '',
         commits: mockedCommits,
-        since: 'iso8601'
+        // See fetch mock headers
+        numberOfPages: 320,
       })
     });
 
@@ -75,9 +86,9 @@ describe('CommitService', () => {
       const result = await CommitService.fetchCommits({ since: 'error', page: 1, until: ''});
 
       expect(result).toMatchObject({
-        error: 'Unable to fetch commits',
+        error: 'unableToFetchCommits',
         commits: [],
-        since: 'error'
+        numberOfPages: undefined,
       })
     });
   })

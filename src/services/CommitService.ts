@@ -15,19 +15,21 @@ class CommitServiceClass {
   }
   private linkHeaderPagesRegEx = /&page=(\d+)/
 
-  async fetchCommits({ since, until, page }: IFetchCommitOptions): Promise<ICommitState> {
+  async fetchCommits({ since, until, page }: IFetchCommitOptions): Promise<Pick<ICommitState, 'commits' | 'error' | 'numberOfPages'>> {
     const response = await fetch(applyQueryParams(endpoint, {
       ...this.defaultQueryParams,
       page,
+      since,
+      until,
     }), {
       headers: this.headers
     });
 
     if(!response.ok) {
-      return this.returnError({ since, until });
+      return this.returnError();
     }
 
-    return this.returnSuccess(response, { since, page, until });
+    return this.returnSuccess(response);
   }
 
   formatCommits(commits: ICommit[], locale: string|undefined = undefined): IFormattedCommit[] {
@@ -39,24 +41,20 @@ class CommitServiceClass {
     })
   }
 
-  private returnError({ since, until }: Omit<IFetchCommitOptions, 'page'>) {
+  private returnError() {
     return {
       error: 'unableToFetchCommits',
       numberOfPages: undefined,
       commits: [],
-      since,
-      until,
     }
   }
 
-  private async returnSuccess(response: Response, { since, page, until }: IFetchCommitOptions) {
+  private async returnSuccess(response: Response) {
     const commits = await response.json();
     return {
       error: '',
       numberOfPages: this.getTotalNumberOfPagesFromHeaders(response),
       commits,
-      since,
-      until,
     }
   }
 
