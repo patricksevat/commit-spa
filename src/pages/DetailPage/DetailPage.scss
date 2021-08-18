@@ -1,0 +1,8 @@
+.detail-card {
+  max-width: 400px;
+  margin: 0 auto;
+
+  &__divider.MuiDivider-root {
+    margin: 12px 0;
+  }
+}
