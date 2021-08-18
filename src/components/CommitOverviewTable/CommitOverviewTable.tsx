@@ -56,7 +56,7 @@ export const CommitOverviewTable = () => {
         component="div"
         count={numberOfPages || 1}
         rowsPerPage={10}
-        page={currentPage - 1}
+        page={currentPage}
         onPageChange={handleChangePage}
       />
     </Paper>

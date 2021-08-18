@@ -7,7 +7,7 @@ import { TranslationContext } from './TranslationContext';
 const initialState: ICommitProviderState = {
   error: '',
   numberOfPages: undefined,
-  currentPage: 1,
+  currentPage: 0,
   commits: [],
   since: epochStartTimeStamp(),
   until: nowTimestamp(),

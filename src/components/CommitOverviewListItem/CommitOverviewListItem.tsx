@@ -12,7 +12,7 @@ export const CommitOverviewListItem: FunctionComponent<ICommitOverviewListItemPr
   const sha = commit.sha;
   const message= commit.commit.message
   const date= commit.commit.author.formattedDate
-  const author= commit.author.login
+  const author= commit.commit.author.name
 
   function handleRowClick() {
     setSelectedCommit && setSelectedCommit(commit);
