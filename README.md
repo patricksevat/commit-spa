@@ -21,6 +21,11 @@ Boilerplate based on [CRA Must Have Libraries](https://www.npmjs.com/package/cra
         - Link to issues? Wont do ❌
         - Committer ✅
 - Properly tested 🔁
+    - Add unit where needed
+    - Add integration:
+        - Navigation to detail page
+        - Check language switching
+        - Check pagination
 
 ## Architecture
 
