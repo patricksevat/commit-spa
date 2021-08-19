@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent, useContext } from 'react';
+import React, { ChangeEvent, FunctionComponent } from 'react';
 import './AppLayout.scss';
 import { Typography, AppBar, Toolbar, Select, MenuItem, IconButton } from '@material-ui/core';
 import { TranslationContext } from '../hooks/TranslationContext';
@@ -6,7 +6,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { ArrowBack } from '@material-ui/icons';
 
 export const AppLayout: FunctionComponent = (props) => {
-  const { setLanguage, translate, language } = useContext(TranslationContext);
+  const { setLanguage, translate, language } = React.useContext(TranslationContext);
 
   function handleLanguageChange(event: ChangeEvent<{ value: unknown }>) {
     const target = event.target as HTMLSelectElement
@@ -44,7 +44,6 @@ export const AppLayout: FunctionComponent = (props) => {
       <main>
         { props.children }
       </main>
-
     </>
 
   );

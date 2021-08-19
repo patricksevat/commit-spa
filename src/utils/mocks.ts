@@ -1,13 +1,17 @@
-import { ICommit, ICommitProviderState, IFormattedCommit } from '../types/commits';
+import { ICommitProviderState, IFormattedCommit } from '../types/commits';
 import { Context } from 'react';
 import { TranslationContext } from '../hooks/TranslationContext';
+
+export const languageContextMock = {
+  setLanguage: jest.fn(),
+  translate: jest.fn(),
+  language: jest.fn().mockReturnValue('translated-string'),
+}
 
 export function createUseContextMockImplementation(value: ICommitProviderState) {
   return function (context: Context<any>) {
     if(context === TranslationContext) {
-      return {
-        translate: () => 'translated-string'
-      }
+      return languageContextMock
     }
 
     return value;
