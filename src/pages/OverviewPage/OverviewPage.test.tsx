@@ -1,37 +1,14 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { OverviewPage } from './OverviewPage';
-import { Context } from 'react';
 import { Error } from '../../components/Error/Error';
-import { mockedCommits } from '../../services/CommitService.test';
-import { TranslationContext } from '../../hooks/TranslationContext';
-import { ICommitProviderState } from '../../types/commits';
 import { TableSkeleton } from '../../components/Skeleton/Skeleton';
 import { CommitOverviewTable } from '../../components/CommitOverviewTable/CommitOverviewTable';
-
-function createUseContextMockImplementation(value: ICommitProviderState) {
-  return function (context: Context<any>) {
-    if(context === TranslationContext) {
-      return {
-        translate: () => 'translated-string'
-      }
-    }
-
-    return value;
-  }
-}
-
-const initState = {
-  commits: [],
-  error: '',
-  since: '',
-  setSince: () => {},
-  currentPage: 1,
-  setCurrentPage: () => {},
-  numberOfPages: 20,
-  until: '',
-  fetching: false,
-};
+import {
+  createUseContextMockImplementation,
+  initCommitProviderState as initState,
+  mockedCommits
+} from '../../utils/mocks';
 
 const useContextMock = jest.spyOn(React, 'useContext').mockImplementation(
   createUseContextMockImplementation(initState)

@@ -1,23 +1,6 @@
 import { endpoint, CommitService } from './CommitService'
 import { personalAccessToken } from '../secret/githubApi';
-import { ICommit } from '../types/commits';
-
-export const mockedCommits: ICommit[] = [{
-  sha: '123',
-  commit: {
-    author: {
-      name: 'Patrick',
-      date: '2021-08-17T09:11:19.087Z',
-    },
-    message: 'feat(): awesome',
-  },
-  html_url: 'https://foo.com/commit123',
-  author: {
-    login: 'sevatpmc',
-    url: 'https://foo.com/sevatpmc',
-    avatar_url: '',
-  }
-}]
+import { mockedCommits } from '../utils/mocks';
 
 const fetchMock = jest.fn(() => {
   return Promise.resolve({
