@@ -1,8 +1,9 @@
 import React, { ChangeEvent, FunctionComponent, useContext } from 'react';
 import './AppLayout.scss';
-import { Typography, AppBar, Toolbar, Select, MenuItem } from '@material-ui/core';
+import { Typography, AppBar, Toolbar, Select, MenuItem, IconButton } from '@material-ui/core';
 import { TranslationContext } from '../hooks/TranslationContext';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
+import { ArrowBack } from '@material-ui/icons';
 
 export const AppLayout: FunctionComponent = (props) => {
   const { setLanguage, translate, language } = useContext(TranslationContext);
@@ -12,14 +13,19 @@ export const AppLayout: FunctionComponent = (props) => {
     setLanguage && setLanguage(target.value);
   }
 
+  const history = useHistory();
   const { pathname } = useLocation();
   const pathSegments = pathname.split('/')
 
-  // TODO add menu or home button
   return (
     <>
       <AppBar position={'sticky'}>
         <Toolbar id='toolbar'>
+          { pathSegments[1] &&
+            <IconButton edge="start" color='inherit' onClick={() => history.push('/')}>
+              <ArrowBack />
+            </IconButton>
+          }
           <Typography variant="h6">
             { translate(`toolbarTitle/${pathSegments[1]}`)}
           </Typography>
