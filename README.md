@@ -2,6 +2,24 @@
 
 Boilerplate based on [CRA Must Have Libraries](https://www.npmjs.com/package/cra-template-must-have-libraries)
 
+## Install & run
+
+Install dependencies: 
+
+`$ yarn install`
+
+Start app:
+
+`$ yarn start`
+
+Run unit tests (assumes no changes):
+
+`$ yarn test`
+
+Run e2e tests: 
+
+``
+
 ## Requirements
 
 - Use React or Angular ✅
@@ -20,12 +38,14 @@ Boilerplate based on [CRA Must Have Libraries](https://www.npmjs.com/package/cra
         - Timestamp ✅
         - Link to issues? Wont do ❌
         - Committer ✅
-- Properly tested 🔁
-    - Add unit where needed
-    - Add integration:
+- Properly tested ⚠️
+    - Add unit where needed ⚠️
+    - TODO Add integration:
         - Navigation to detail page
+            - Click external link
         - Check language switching
         - Check pagination
+        - Check Date Picker
 
 ## Architecture
 
