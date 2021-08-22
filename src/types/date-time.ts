@@ -1,2 +1,2 @@
-export type Iso8601Timestamp = string;
-export type LocaleFormattedDate = string;
+export type Iso8601Timestamp = string
+export type LocaleFormattedDate = string

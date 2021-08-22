@@ -1,23 +1,23 @@
-import React, { ChangeEvent, FunctionComponent } from 'react';
-import { TextField } from '@material-ui/core';
-import { convertDateTimeLocalToIso8601, convertIso8601ToDateTimeLocal } from '../../utils/date-time';
-import { CommitContext } from '../../hooks/CommitContext';
-import { TranslationContext } from '../../hooks/TranslationContext';
+import React, { ChangeEvent, FunctionComponent } from 'react'
+import { TextField } from '@material-ui/core'
+import { convertDateTimeLocalToIso8601, convertIso8601ToDateTimeLocal } from '../../utils/date-time'
+import { CommitContext } from '../../hooks/CommitContext'
+import { TranslationContext } from '../../hooks/TranslationContext'
 import './CommitOverviewTableFilters.scss'
 
 export const CommitOverviewTableFilters: FunctionComponent = () => {
-  const { translate } = React.useContext(TranslationContext);
-  const { since, setSince, until, setUntil } = React.useContext(CommitContext);
+  const { translate } = React.useContext(TranslationContext)
+  const { since, setSince, until, setUntil } = React.useContext(CommitContext)
 
   function handleSinceChange(event: ChangeEvent<{ value: unknown }>) {
-    const target = event.target as HTMLInputElement;
-    const value = target.value;
+    const target = event.target as HTMLInputElement
+    const value = target.value
     setSince && setSince(convertDateTimeLocalToIso8601(value))
   }
 
   function handleUntilChange(event: ChangeEvent<{ value: unknown }>) {
-    const target = event.target as HTMLInputElement;
-    const value = target.value;
+    const target = event.target as HTMLInputElement
+    const value = target.value
     setUntil && setUntil(convertDateTimeLocalToIso8601(value))
   }
 
@@ -26,7 +26,7 @@ export const CommitOverviewTableFilters: FunctionComponent = () => {
     <form noValidate id={'commit-overview-table-filters'}>
       <TextField
         id="datetime-since"
-        className='commit-overview-table-filters__datetime-input'
+        className="commit-overview-table-filters__datetime-input"
         label={translate('since')}
         type="datetime-local"
         value={convertIso8601ToDateTimeLocal(since)}
@@ -37,7 +37,7 @@ export const CommitOverviewTableFilters: FunctionComponent = () => {
       />
       <TextField
         id="datetime-until"
-        className='commit-overview-table-filters__datetime-input'
+        className="commit-overview-table-filters__datetime-input"
         label={translate('until')}
         type="datetime-local"
         value={convertIso8601ToDateTimeLocal(until)}
