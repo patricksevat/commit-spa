@@ -1,6 +1,9 @@
 # Bloomreach SPA
 
-Boilerplate based on [CRA Must Have Libraries](https://www.npmjs.com/package/cra-template-must-have-libraries)
+Boilerplate based on [CRA Must Have Libraries](https://www.npmjs.com/package/cra-template-must-have-libraries).
+
+I have chosen for React as a framework, because it has been a while since I worked with React and am interested in
+learning how hooks work and combining React with TypeScript.
 
 ## Install & run
 
@@ -18,7 +21,22 @@ Run unit tests (assumes no changes):
 
 Run e2e tests: 
 
-``
+`$ yarn test:e2e`
+
+## Self review
+
+Overall, I'm reasonably happy with this assignment. The lack of experience with React in the couple of years caused several timesinks
+such as finding the right useContext pattern, React + TS config and testing patterns. The app itself works as expected and has
+a good seperation of concerns, but could be slighly cleaner here and there.
+
+- Shared state using `useContext` was fun to do, but took some iterations until I found the pattern that worked
+    - Reviewing CommitService now, perhaps that some of the individual states can be grouped together to make it a bit cleaner
+_ I think the separation of concerns between pages, components, services and context is good,
+- TypeScript + React was tricky here and there
+- Testing: "okay-ish"
+    - Unit: main logic is under test, coverage on components can be improved. Utils should definitively be covered
+    - Integration: all user interactions under test, so thats good.
+        - Was struggling a bit with WebdriverIO + TypeScript support, that can be improved
 
 ## Requirements
 
@@ -40,44 +58,12 @@ Run e2e tests:
         - Committer ✅
 - Properly tested ⚠️
     - Add unit where needed ⚠️
-    - TODO Add integration:
-        - Navigation to detail page
-            - Click external link
-        - Check language switching
-        - Check pagination
-        - Check Date Picker
-
-## Architecture
-
-### Pages
-
-- CommitOverviewPage
-- CommitDetailPage
-
-### Components
-
-- CommitOverviewList
-    - Loading spinner? Skeleton/shimmer component?
-    - Lazy loading? Pagination?
-- CommitOverviewListItem
-- CommitOverviewDateRangePicker
-
-### Services
-
-- FetchCommitsService
-
-### State management
-
-- Redux? Context hook?
-    - For this assignment Redux might be a bit overkill
-    - TODO want to add Suspense?
-    - TODO error handling? Perhaps Error Boundaries
-
-### Testing
-
-- Unit tests: use Enzyme for basic component tests, use Jest for service logic
-- Integration tests: check if needed, could be that Enzyme is enough, otherwise Cypress. Will need to remove Puppeteer 
-that came with template
+    - Add integration ✅
+        - Navigation to detail page ✅
+            - Click external link ✅
+        - Check language switching ✅
+        - Check pagination ✅
+        - Check Date Picker ✅
 
 ### Focus points
 
@@ -85,24 +71,3 @@ that came with template
 - No focus on theming, I've shown that in previous demo
 - Focus on services
 - Focus on testing
-
-### 
-
-## Time log
-
-### August 16th
-- 10:45 - 11:20 create boilerplate / remove unused parts, start thinking about architecture, document in README.md
-- 11:20 - 12:15 read up a bit on hooks, make a start on the CommitService
-- 12:50 - 13:15 Implement StateContext and StateProvider
-- 13:15 - 14:00 CommitService tests, 
-- 14:00 - 15:00 start on OverviewPage
-- 19:30 - 20:00 Show error when data fetching fails, add shimmer
-- 20:00 - 20:45 Unit tests for CommitOverviewList (struggling with an Enzyme / useContext mocking issue)
-- 21:00 - 22:00 Add translations
-
-### August 17th
-- 08:30 - 08:40 refactor AppRouter.tsx
-- 10:45 - 11:15 Make dates locale specific, connect StateContext and TranslationContext, update tests
-- 11:45 - 11:40 fix CommitOverviewList.test.tsx
-- Stopped tracking time from here as I felt I was going too slow and it was giving me pressure. 
-So less detailed time tracking, more focus on quality
